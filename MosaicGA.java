@@ -11,8 +11,8 @@ public class MosaicGA {
     public int totalGeneration;
     public Mosaic mosaic ; 
 
-    public MosaicGA(Random MyRand, int maxPopulationSize, double elitismPct, 
-    double crossoverRate, double mutationRate, int totalGeneration, Mosaic mosaic) {
+    public MosaicGA(Random MyRand, int totalGeneration, int maxPopulationSize, 
+    double crossoverRate, double mutationRate, double elitismPct, Mosaic mosaic) {
         this.MyRand = MyRand;
         this.maxPopulationSize = maxPopulationSize;
         this.elitismPct = elitismPct;

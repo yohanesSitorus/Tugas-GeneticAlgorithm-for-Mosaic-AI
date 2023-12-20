@@ -25,7 +25,7 @@ public class Population {
 
     public void randomPopulation() {
         for (int i=0;i<this.maxPopulationSize;i++) {
-            this.addIndividual(new Individual(this.MyRand));
+            this.addIndividual(new Individual(this.MyRand, this.mosaic, this.size));
         }
     }
 
@@ -38,7 +38,7 @@ public class Population {
 
     public void computeAllFitnesses() {
         for (int i=0;i<this.populationSize;i++) {
-            ((Individual)this.population.get(i)).setFitness(this.mosaic, this.size);
+            ((Individual)this.population.get(i)).setFitness();
         }
         this.population.sort((idv1,idv2) -> idv1.compareTo(idv2));
     }
