@@ -15,13 +15,13 @@ public class Main{
 			Random gen = new Random(seed);
 	    	int mosaicSize=0, totalGeneration=0, maxPopulationSize=0;
 	    	double crossoverRate=0.0, mutationRate=0.0, elitismPct=0.0;
-            Mosaic mosaic ;
+            Mosaic mosaic = null;
             try {
                 sc = new Scanner(new File("input.txt"));
                 mosaicSize = sc.nextInt() ;
                 mosaic = new Mosaic(mosaicSize) ;
-                for(int i ; i < mosaicSize ; i++) {
-                    for(int j ; j < mosaicSize ; j++) {
+                for(int i = 0 ; i < mosaicSize ; i++) {
+                    for(int j = 0 ; j < mosaicSize ; j++) {
                         mosaic.setGrid(i, j, sc.nextInt()) ;
                     }
                 }
