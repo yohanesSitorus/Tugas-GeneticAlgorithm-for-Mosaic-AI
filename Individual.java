@@ -16,13 +16,6 @@ public class Individual  implements Comparable<Individual>{
         this.fillChromosome() ;
     }
 
-    public Individual(Random MyRand, int chromosome) {
-        this.MyRand = MyRand;
-        this.chromosome = chromosome;
-        this.fitness = 0;
-        this.parentProbability = 0;
-    }
-
     public void fillChromosome() {
         this.chromosome = new Mosaic(this.size) ;
         int randRow = this.MyRand.nextInt(this.size-1) ;
@@ -75,8 +68,63 @@ public class Individual  implements Comparable<Individual>{
         return this.fitness;
     }
 
-    public Individual doCrossover(Individual other) {	//two points
+    public void doMutation() {
+        int mutatedRow = this.MyRand.nextInt(this.size-1) ;
+        int mutatedCol = this.MyRand.nextInt(this.size-1) ;
         
+        if(this.chromosome[mutatedRow][mutatedCol] == 1){
+            this.chromosome[mutatedRow][mutatedCol] = 0 ;
+        }else{
+            this.chromosome[mutatedRow][mutatedCol] = 1 ;
+        }
+        
+    }
+
+    public Individual doCrossover(Individual other) {	//two points
+        Individual child1 = new Individual(this.MyRand, this.size);
+        Individual child2 = new Individual(this.MyRand, this.size);
+
+        int [] crossoverPoints = new int [this.size] ; 
+        for(int i = 0 ; i < this.size ; i++){
+            for(int j = 0 ; j < this.size ; j++) {
+                if(i%2==1){
+                    child1.chromosome[i][j] = other.chromosome[i][j] ;
+                    child2.chromosome[i][j] = this.chromosome[i][j] ;
+                }else{
+                    child1.chromosome[i][j] = this.chromosome[i][j] ;
+                    child2.chromosome[i][j] = other.chromosome[i][j] ;
+                }
+                
+            }
+        }
+        int choose = this.MyRand.nextInt(2);
+        //System.out.println(choose);
+        //System.out.println("-----");
+        if (choose==0) return child1;
+        else return child2;
+        //return child;
+    }
+
+    @Override
+    public int compareTo(Individual other) {
+    	if (this.fitness>other.fitness) return -1;
+        else if (this.fitness<other.fitness) return 1;
+        else return 0;
+    }
+
+    @Override
+	public String toString() {
+		String res = new String(this.chromosome + " " + this.fitness);
+		return res;
+	}
+
+    public String printChromosome() {
+        String linearChromosome = "" ;
+        for(int i = 0 ; i < this.size ; i++){
+            for(int j = 0 ; j < this.size ; j++){
+                linearChromosome += this.chromosome[i][j] ;
+            }
+        }
     }
 
 }
