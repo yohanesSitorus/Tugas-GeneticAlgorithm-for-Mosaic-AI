@@ -62,34 +62,39 @@ public class Population {
     public Individual[] selectParent() {    //rank selection
         Individual[] parents = new Individual[2];
         this.population.sort((idv1,idv2) -> idv1.compareTo(idv2)); //Question : knp dikerjakan 2x ? di method computeAllFitnesses udh dilakukan
-        int top = this.population.size()+1;
+        //int top = this.population.size()+1; //Question: knp topnya harus +1 ?
         for (int i=0;i<this.population.size();i++) {
-            ((Individual)this.population.get(i)).parentProbability = (1.0*top)/this.sumRank; //Question : artinya dalam 1 populasi tiap individu memeliki parentProbability yg sama?
+            ((Individual)this.population.get(i)).parentProbability = (1.0*(this.population.size()-i))/this.sumRank; //Question : artinya dalam 1 populasi tiap individu memeliki parentProbability yg sama?
         }
-        for (int n = 0;n<2;n++) {
-            int i=-1;
-            double prob = this.MyRand.nextDouble();
-            double sum = 0.0;
-            do {
-                i++;
-                sum = sum + this.population.get(i).parentProbability;
-            } while(sum<prob);
-            parents[n] = this.population.get(i);
+
+        for(int n = 0;n<2;n++) {
+            double prob =  this.MyRand.nextDouble();
+            for(int i = 0;i < this.population.size(); i++) {
+                if(this.population.get(i).parentProbability >= prob) {
+                    parents[n] = this.population.get(i);
+                }
+            }
         }
+
         return parents;
     }
 
-    // public Individual getBestIdv() {
-    //     //int top = this.population.size()+1;
-    //     return this.population.get(0);
-    // }
+    public Individual getBestIdv() {
+        //int top = this.population.size()+1;
+        return this.population.get(0);
+    }
 
-	// @Override
-	// public String toString() {
-	// 	String res = new String();
-	// 	for (int i =0;i<this.population.size();i++) {
-	// 		res = res + new String(this.population.get(i)+"\n");
-	// 	}
-	// 	return res;
-	// }
+	@Override
+	public String toString() {
+		String res = new String();
+		for (int i =0;i<this.population.size();i++) {
+			res = res + new String(this.population.get(i)+"\n");
+		}
+		return res;
+	}
 }
+
+/*
+ * Testing : 
+ * coba print population. Apakah urutannya dari yg fitness tertinggi paling depan atau sebaliknya
+ */
