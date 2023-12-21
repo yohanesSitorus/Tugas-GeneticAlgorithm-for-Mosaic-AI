@@ -18,8 +18,6 @@ public class Population {
         this.populasi = new ArrayList<Individual>();
         this.elitismPct = elitismPct;
         this.mosaic = mosaic ;
-        // looping untuk menghitung total fitness dalam populasi
-        for (int i=1;i<=this.maxPopulationSize;i++) this.sumRank = this.sumRank + i;
     }
     // method untuk menggenerasi random population pada tahap awal (generasi pertama) sebesar 25, karena ukuran mosaic 5x5
     public void randomPopulation() {
@@ -45,13 +43,14 @@ public class Population {
         }
         // mensorting semua populasi
         this.populasi.sort((idv1,idv2) -> idv1.compareTo(idv2));
+        totalFitness();
     }
     // method untuk mendapatkan populasi baru dari eltisime
     public Population getNewPopulationWElit() {
         Population newPop = new Population(this.rn,this.maxPopulationSize,this.elitismPct,this.mosaic);
         int n = (int)(this.elitismPct * this.maxPopulationSize);
         for (int i=0;i<n;i++) {
-            boolean res = newPop.addIndividual(this.populasi.get(i));
+            newPop.addIndividual(this.populasi.get(i));
         }
         return newPop;
     }
@@ -59,14 +58,14 @@ public class Population {
     public Individual getBestIdv() {
         return this.populasi.get(0);
     }
-    // method untuk memilih Pareng dengan metode Roulette wheel
+    // method untuk memilih Pareng dengan metode Rank selection
     public Individual[] selectParent() {    
         Individual[] parents = new Individual[2];
         this.populasi.sort((idv1,idv2) -> idv1.compareTo(idv2));
         for (int i=0;i<this.populasi.size();i++) {
             ((Individual)this.populasi.get(i)).parentProbability = (1.0*(this.populasi.size()-i))/this.sumRank; //menghitung probabilitasi Parent 
         }
-        // looping Roulette wheel untuk mencari parent
+        // looping untuk mencari parent
         for(int n = 0;n<2;n++) {
             double prob =  this.rn.nextDouble();
             double temp=0;
@@ -79,5 +78,10 @@ public class Population {
         }
 
         return parents;
+    }
+
+    public void totalFitness(){
+        // looping untuk menghitung total fitness dalam populasi
+        for (int i=1;i<=this.maxPopulationSize;i++) this.sumRank = this.sumRank + i;
     }
 }

@@ -81,7 +81,7 @@ public class Individual implements Comparable<Individual>{
                             temp++;
                         }
                     }
-                    //kalau < angka mosaic  +1 poin, tiap lebih -2 poin  
+                    //kalau < angka pada mosaic  +1 poin, tiap lebih -2 poin  
                     if(mosaic[i][j]>=temp) tempFitness+=temp;
                     else tempFitness+= mosaic[i][j]-2*(temp-mosaic[i][j]);
                 }
@@ -91,18 +91,21 @@ public class Individual implements Comparable<Individual>{
         this.fitness=tempFitness;
 
     }
-    // Method untuk Crossover
+    // Method untuk Crossover, two point crossover
     public Individual doCrossover(Individual other) {	
+        //inisialisasi
         int[]child1=new int[25];
         int[]child2=new int[25];
         int rd1=0;
         int rd2=1;
+        //cari crossover point 1&2
         do{
             rd1=this.indRand.nextInt(20)+3;
             rd2=this.indRand.nextInt(20)+3;
         }while(Math.abs(rd1-rd2)<=2);
         int pos1 = Math.min(rd1,rd2);
         int pos2 = Math.max(rd1,rd2);
+        //proses crossover
         for (int i=0;i<=pos1;i++) {
             child1[i]=this.kromosom[i];
             child2[i]=other.kromosom[i];
@@ -115,6 +118,7 @@ public class Individual implements Comparable<Individual>{
             child1[i]=this.kromosom[i];
             child2[i]=other.kromosom[i];
         }
+        //pilih salah satu anak
         int choose = this.indRand.nextInt(2);
         if (choose==0) return new Individual(indRand, child1);
         else return new Individual(indRand, child2);
