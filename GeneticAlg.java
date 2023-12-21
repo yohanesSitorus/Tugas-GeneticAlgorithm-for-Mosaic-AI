@@ -1,16 +1,16 @@
-import java.util.ArrayList;
-import java.util.Random;
-
+import java.util.Random; // Menginisialisasi Random number generator
+// inisialisasi kelas GeneticAlg 
 public class GeneticAlg {
-    private Random rn;
-    public int maxPopulationSize;
-    public double elitismPct;
-    public double crossoverRate;
-    public double mutationRate;
-    public int totalGeneration;
-    public int[][] mosaic;
-    public int maxPoint;
+    private Random rn; // variabel rn berbendutk random number
+    public int maxPopulationSize; // varieabel maxPopulationSize dalam integer
+    public double elitismPct; // variabel elitisme dalam double
+    public double crossoverRate;// variabel kemungkinan crossover dalam double
+    public double mutationRate; // variabel kemungkinan mutasi dalam double
+    public int totalGeneration; // vairabel total generasi dalam integer
+    public int[][] mosaic; // variabel mosaic bertipe array 2 dimensi
+    public int maxPoint; // variabel maxPoint bertipe integer
 
+    // Constructor GeneticAlg meminta variabel rn, totalGeneration, maxPopuilationSize, elitisme, crossoverRate, mutationRate, Array mosaic juga maxPoint
     public GeneticAlg(Random rn, int totalGeneration, int maxPopulationSize, double elitismPct,double crossoverRate, double mutationRate,int[][] mosaic,int maxPoint) {
         this.rn = rn;
         this.totalGeneration = totalGeneration;
@@ -21,40 +21,35 @@ public class GeneticAlg {
         this.mosaic=mosaic;
         this.maxPoint=maxPoint;
     }
+    //Method run untuk menjalankan Genetic Algorithm
     public Individual run() {
-        int generation = 1;
-        Population currentPop = new Population(this.rn,this.maxPopulationSize,this.elitismPct,this.mosaic);
-        currentPop.randomPopulation();
-        currentPop.computeAllFitnesses();
-        //System.out.println(currentPop);
+        int generation = 1; // generasi start dari generasi pertama
+        Population currentPop = new Population(this.rn,this.maxPopulationSize,this.elitismPct,this.mosaic); // mengambil isi populasi sekarang
+        currentPop.randomPopulation(); // mengisi dengan random population karena generasi pertama
+        currentPop.computeAllFitnesses(); // menghitung semua fitness populasi
+        // looping selama banyak generasi yang diminta belom terlebihi
         while (generation>=this.totalGeneration) {
-        	//System.out.println("Gen : "+generation+" Best: "+currentPop.getBestIdv().fitness);
-            Population newPop = currentPop.getNewPopulationWElit();
-            //System.out.println(newPop);
+            Population newPop = currentPop.getNewPopulationWElit(); // mengambil populasi sekarang denga elitisme
+            // jika newPop tidak penuh, maka akan memilih parent untuk crossover
             while (newPop.isFilled()==false) {
-            	//System.out.println("fill");
-                Individual[] parents = currentPop.selectParent();
-                //System.out.println(parents[0]);
-                //System.out.println(parents[1]);
+                Individual[] parents = currentPop.selectParent(); // memilih parent
+                // jika rn lebih kecil dari crossover rate maka akan terjadi crossover pada parent
                 if (this.rn.nextDouble()<this.crossoverRate) {
-                	//System.out.println("crossed");
                     Individual child = parents[0].doCrossover(parents[1]);
+                    // jika rn lebih kecil dari mutationRate maka akan terjadi mutasi pada anak
                     if (this.rn.nextDouble()<this.mutationRate) {
-                        //System.out.println("mutate");
                         child.mutate();
                     }
-                    newPop.addIndividual(child);
+                    newPop.addIndividual(child); // menambah anak sebagai individual pada newPop
                 }
-                //else System.out.println("not crossed");
             }
-            generation++;
-            currentPop = newPop;
-            currentPop.computeAllFitnesses();
+            generation++; // generasi bertammbah
+            currentPop = newPop; // currentpop dijadikan newpop
+            currentPop.computeAllFitnesses(); // menghitung fitness dari currentpop
+            // jika fitness individual terbaik dari currentpop = maxPoint maka akan berhenti
             if(currentPop.getBestIdv().fitness==maxPoint)break;
-            //System.out.println(currentPop);
-            //report pop
         }
-        return currentPop.getBestIdv();
+        return currentPop.getBestIdv(); // mengembalikan individual terbaik dari currentpop
     }
 }
 

@@ -1,36 +1,38 @@
-import java.util.Random;
-
+import java.util.Random; // import Random number generator
+// inisialisasi kelas Individual1
 public class Individual implements Comparable<Individual>{
-    public int[] kromosom;
-    public int fitness;
-    public Random indRand;
-    public double parentProbability;
-    //random generated
+    public int[] kromosom; // array integer berisi kromosom
+    public int fitness; // variabel integer untuk fitness
+    public Random indRand; // variabel dengan tipe Random number untuk indRand
+    public double parentProbability; // variabel dengan tipe Double untuk parentProbability
+    //Constructor Individual dengan meminta variabel r dan size
     public Individual(Random r,int size){
-        this.indRand=r;
-        this.fitness=0;
-        this.kromosom=new int[25];
+        this.indRand=r; // inisialisasi r sebagai indRand
+        this.fitness=0; // set fitness awal ke 0
+        this.kromosom=new int[25]; // inisialisasi kromosom dengan tipe integer sebesar 25
+        // looping untuk mengisi kromosom dengan indRand
         for(int i=0;i<size;i++){
             this.kromosom[i]=this.indRand.nextInt(0, 2);
         }
     }
-    //premade
+    //Constructor Individual dengan meminta variabel r dan array kromosom
     public Individual(Random r,int[] kromosom){
         this.indRand=r;
         this.fitness=0;
         this.kromosom=kromosom;
     }
-
+    //Method untuk mutasi
     public void mutate(){
         int index =this.indRand.nextInt(kromosom.length-1);
         if(kromosom[index]==1) kromosom[index]=0;
         else kromosom[index]=1;
     }
+    //Method menghitunnng Fitness untuk kromosom dengan masukan array 2 dimensi mosaic
     public void hitungFitnessKromosom(int[][] mosaic){
-        int[][] kromosomRep=new int[5][5];
-        int counterKrom=0;
-        int tempFitness=0;
-        int temp;
+        int[][] kromosomRep=new int[5][5]; // inisialisasi kromosom dengan ukuran 5x5
+        int counterKrom=0; // variabel penghitung kromosom
+        int tempFitness=0; // variabel penyimpan Fitness sementara
+        int temp; // variabel temp untuk menyimpan banyak angka
         for(int i=0;i<5;i++){
             for(int j=0;j<5;j++){
                 kromosomRep[i][j]=this.kromosom[counterKrom];
@@ -42,38 +44,39 @@ public class Individual implements Comparable<Individual>{
             for(int j=0;j<5;j++){
                 if(mosaic[i][j]!=-1){
                     temp=0;
+                    //penggambaran posisi pengecekan
                     /*
                      * 123
                      * 456
                      * 789
                      */
                     if(i-1>=0){
-                        //1
+                        //1 (Mengecek posisi kiri atas)
                         if(j-1>=0 && kromosomRep[i-1][j-1]==1){
                             temp++;
                         }
-                        //2
+                        //2 (Mengecek posisi tengah atas)
                         if(kromosomRep[i-1][j]==1) temp++;
-                        //3
+                        //3 (Mengecek posisi kanan atas)
                         if(j+1<5 && kromosomRep[i-1][j+1]==1){
                             temp++;
                         }
                     }
-                    //4
+                    //4 (Mengecek posisi tengah kiri)
                     if(j-1>=0 && kromosomRep[i][j-1]==1)temp++;
-                    //5
+                    //5 (Mengecek posisi tengah tengah)
                     if(kromosomRep[i][j]==1)temp++;
-                    //6
+                    //6 (Mengecek posisi tengah kanan)
                     if(j+1<5 && kromosomRep[i][j+1]==1)temp++;    
                     
                     if(i+1<5){
-                        //7
+                        //7 (Mengecek posisi bawah kiri)
                         if(j-1>=0 && kromosomRep[i+1][j-1]==1){
                             temp++;
                         }
-                        //8
+                        //8 (Mengecek posisi bawah tengah)
                         if(kromosomRep[i+1][j]==1) temp++;
-                        //9
+                        //9 (Mengecek posisi bawah kanan)
                         if(j+1<5 && kromosomRep[i+1][j+1]==1){
                             temp++;
                         }
@@ -88,9 +91,8 @@ public class Individual implements Comparable<Individual>{
         this.fitness=tempFitness;
 
     }
-    public Individual doCrossover(Individual other) {	//two points
-        // Individual child1 = new Individual(this.indRand,25);
-        // Individual child2 = new Individual(this.indRand,  25);
+    // Method untuk Crossover
+    public Individual doCrossover(Individual other) {	
         int[]child1=new int[25];
         int[]child2=new int[25];
         int rd1=0;
@@ -118,12 +120,14 @@ public class Individual implements Comparable<Individual>{
         else return new Individual(indRand, child2);
     }
     @Override
+    // Method untuk membandingkan fitness
     public int compareTo(Individual ind2){
         if(this.fitness>ind2.fitness) return -1;
         else if(this.fitness<ind2.fitness) return 1;
         else return 0;
     }
     @Override
+    //Method untuk merubah jadi string
     public String toString(){
         String s="";
         int counter=0;
