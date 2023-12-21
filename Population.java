@@ -10,19 +10,21 @@ public class Population {
     private Random rn; // inisialisasi Random number dengan nama rn
     private int[][] mosaic; // inisialisasi array 2 dimensi untuk mosaic
     int sumRank=0; // inisialisasi sumRank dengan nilai 0
+    private int size;
 
     //Constructor Population dengan meminta variabel rn, maxPopulationSize, Elitisme, dan array mosaic
-    public Population(Random rn, int maxPopulationSize, double elitismPct, int[][] mosaic) {
+    public Population(Random rn, int maxPopulationSize, double elitismPct, int[][] mosaic,int size) {
 		this.rn = rn;
         this.maxPopulationSize = maxPopulationSize;
         this.populasi = new ArrayList<Individual>();
         this.elitismPct = elitismPct;
         this.mosaic = mosaic ;
+        this.size=size;
     }
     // method untuk menggenerasi random population pada tahap awal (generasi pertama) sebesar 25, karena ukuran mosaic 5x5
     public void randomPopulation() {
         for (int i=0;i<this.maxPopulationSize;i++) {
-            this.addIndividual(new Individual(this.rn, 25));
+            this.addIndividual(new Individual(this.rn, this.size));
         }
     }
     // method untuk menambah Individual baru ke dalam populasi
@@ -47,7 +49,7 @@ public class Population {
     }
     // method untuk mendapatkan populasi baru dari eltisime
     public Population getNewPopulationWElit() {
-        Population newPop = new Population(this.rn,this.maxPopulationSize,this.elitismPct,this.mosaic);
+        Population newPop = new Population(this.rn,this.maxPopulationSize,this.elitismPct,this.mosaic,this.size);
         int n = (int)(this.elitismPct * this.maxPopulationSize);
         for (int i=0;i<n;i++) {
             newPop.addIndividual(this.populasi.get(i));

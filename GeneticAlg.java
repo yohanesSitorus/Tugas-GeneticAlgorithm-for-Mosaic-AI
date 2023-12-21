@@ -9,9 +9,10 @@ public class GeneticAlg {
     public int totalGeneration; // vairabel total generasi dalam integer
     public int[][] mosaic; // variabel mosaic bertipe array 2 dimensi
     public int maxPoint; // variabel maxPoint bertipe integer
+    public int size;//besar panjang atau lebar mosaic
 
     // Constructor GeneticAlg meminta variabel rn, totalGeneration, maxPopuilationSize, elitisme, crossoverRate, mutationRate, Array mosaic juga maxPoint
-    public GeneticAlg(Random rn, int totalGeneration, int maxPopulationSize, double elitismPct,double crossoverRate, double mutationRate,int[][] mosaic,int maxPoint) {
+    public GeneticAlg(Random rn, int totalGeneration, int maxPopulationSize, double elitismPct,double crossoverRate, double mutationRate,int[][] mosaic,int maxPoint,int n) {
         this.rn = rn;
         this.totalGeneration = totalGeneration;
         this.maxPopulationSize = maxPopulationSize;
@@ -20,11 +21,12 @@ public class GeneticAlg {
         this.mutationRate = mutationRate;
         this.mosaic=mosaic;
         this.maxPoint=maxPoint;
+        this.size=n;
     }
     //Method run untuk menjalankan Genetic Algorithm
     public Individual run() {
         int generation = 1; // generasi start dari generasi pertama
-        Population currentPop = new Population(this.rn,this.maxPopulationSize,this.elitismPct,this.mosaic); // mengambil isi populasi sekarang
+        Population currentPop = new Population(this.rn,this.maxPopulationSize,this.elitismPct,this.mosaic,this.size); // mengambil isi populasi sekarang
         currentPop.randomPopulation(); // mengisi dengan random population karena generasi pertama
         currentPop.computeAllFitnesses(); // menghitung semua fitness populasi
         // looping selama banyak generasi yang diminta belom terlebihi

@@ -5,13 +5,15 @@ public class Individual implements Comparable<Individual>{
     public int fitness; // variabel integer untuk fitness
     public Random indRand; // variabel dengan tipe Random number untuk indRand
     public double parentProbability; // variabel dengan tipe Double untuk parentProbability
+    public int size;
     //Constructor Individual dengan meminta variabel r dan size
     public Individual(Random r,int size){
         this.indRand=r; // inisialisasi r sebagai indRand
         this.fitness=0; // set fitness awal ke 0
-        this.kromosom=new int[25]; // inisialisasi kromosom dengan tipe integer sebesar 25
+        this.size=size;
+        this.kromosom=new int[this.size*this.size]; // inisialisasi kromosom dengan tipe integer sebesar size*size (5x5=25)
         // looping untuk mengisi kromosom dengan indRand
-        for(int i=0;i<size;i++){
+        for(int i=0;i<(this.size*this.size);i++){
             this.kromosom[i]=this.indRand.nextInt(0, 2);
         }
     }
@@ -29,19 +31,19 @@ public class Individual implements Comparable<Individual>{
     }
     //Method menghitunnng Fitness untuk kromosom dengan masukan array 2 dimensi mosaic
     public void hitungFitnessKromosom(int[][] mosaic){
-        int[][] kromosomRep=new int[5][5]; // inisialisasi kromosom dengan ukuran 5x5
+        int[][] kromosomRep=new int[this.size][this.size]; // inisialisasi kromosom dengan ukuran 5x5
         int counterKrom=0; // variabel penghitung kromosom
         int tempFitness=0; // variabel penyimpan Fitness sementara
         int temp; // variabel temp untuk menyimpan banyak angka
-        for(int i=0;i<5;i++){
-            for(int j=0;j<5;j++){
+        for(int i=0;i<this.size;i++){
+            for(int j=0;j<this.size;j++){
                 kromosomRep[i][j]=this.kromosom[counterKrom];
                 counterKrom++;
             }
         }
 
-        for(int i=0;i<5;i++){
-            for(int j=0;j<5;j++){
+        for(int i=0;i<this.size;i++){
+            for(int j=0;j<this.size;j++){
                 if(mosaic[i][j]!=-1){
                     temp=0;
                     //penggambaran posisi pengecekan
@@ -94,14 +96,14 @@ public class Individual implements Comparable<Individual>{
     // Method untuk Crossover, two point crossover
     public Individual doCrossover(Individual other) {	
         //inisialisasi
-        int[]child1=new int[25];
-        int[]child2=new int[25];
+        int[]child1=new int[this.size*this.size];
+        int[]child2=new int[this.size*this.size];
         int rd1=0;
         int rd2=1;
         //cari crossover point 1&2
         do{
-            rd1=this.indRand.nextInt(20)+3;
-            rd2=this.indRand.nextInt(20)+3;
+            rd1=this.indRand.nextInt(this.size-4)+3;
+            rd2=this.indRand.nextInt(this.size-4)+3;
         }while(Math.abs(rd1-rd2)<=2);
         int pos1 = Math.min(rd1,rd2);
         int pos2 = Math.max(rd1,rd2);
