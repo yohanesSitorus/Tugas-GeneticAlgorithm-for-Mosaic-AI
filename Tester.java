@@ -7,32 +7,33 @@ public class Tester {
     public static void main(String[] args){
         Scanner sc= new Scanner(System.in); // inisialisasi Scanner sebagai sc
         Random seeder=new Random(); // inisialisasi Random number untuk variabel seeder
-        int loop=sc.nextInt();
+        int loop=sc.nextInt();//jumlah case pada input
 
         try {
             Scanner si = new Scanner(new File("input.txt"));
             for (int ct=1;ct<=loop;ct++) {
                 int maxPoint=0; // menginisialisasi variabel maxPoint dengan value 0 
                 long seed= seeder.nextLong(); //memasukkan seeder dalam variabel seed berformat long
+                // long seed = sc.nextLong(); //untuk input manual seed
                 System.out.println("seed: "+seed); // mengoutput seed
-                System.out.println(seed);
+
                 Random seededRandom= new Random(seed); // inisialisasi Random number dengan nilai seed
-                int n=0;
-                int totalGeneration=0,populasiMax=0;
-                int mosaic[][]=null;
-                double crossoverRate=0.0, mutateRate=0.0, elitismPct=0.0;
+                int n=0;    //menyimpan lebar/panjang sisi mosaic
+                int totalGeneration=0,populasiMax=0; //simpan generasi sebelum berhenti dan populasi genetic alg
+                int mosaic[][]=null;//simpan mosaic
+                double crossoverRate=0.0, mutateRate=0.0, elitismPct=0.0; //variable crossover,mutate,elitism untuk genetic alg
                 
-                n = si.nextInt() ;
+                n = si.nextInt() ;//panjang sisi mosaic
                 mosaic =new int[n][n];//inisialisasi array 2 dimensi untuk mosaic dengan ukuran nxn
-                System.out.println("inserted mosaic");
+                // menerima input mosaic
                 for(int i = 0 ; i < n ; i++) {
                     for(int j = 0 ; j < n ; j++) {
                         mosaic[i][j]= si.nextInt() ;
-                        System.out.print(mosaic[i][j]);
+                        // System.out.print(mosaic[i][j]);
                         if(mosaic[i][j]>=0) maxPoint+= mosaic[i][j];
                     }
-                    System.out.println();
                 }
+                //menerima parameter genetic algorithm
                 try {
                     sc = new Scanner(new File("param.txt"));
                     totalGeneration = sc.nextInt();
@@ -41,10 +42,16 @@ public class Tester {
                     mutateRate = sc.nextDouble();
                     elitismPct = sc.nextDouble();
                 } catch (FileNotFoundException e) { e.printStackTrace();}
+                //print params
+                System.out.println("total generasi: "+totalGeneration);
+                System.out.println("populasi max: "+populasiMax);
+                System.out.println("mutasi: "+mutateRate);
+                System.out.println("elitisme: "+elitismPct);
+
                 // menginisialisasi dan memasukan semua variabel dalam GeneticAlg dengan nama ga
                 GeneticAlg ga=new GeneticAlg(seededRandom,totalGeneration,populasiMax,elitismPct,crossoverRate,mutateRate,mosaic,maxPoint,n);
                 Individual res=ga.run(); // menginisialisasi Individual berisi ga bernama res
-                System.out.println(res.toString()); // mengoutput hasil res yang telah dikonversi menjadi string
+                System.out.println(res.toString()+"\n"); // mengoutput hasil res yang telah dikonversi menjadi string
             }
         } catch (FileNotFoundException e) { e.printStackTrace();}
     }

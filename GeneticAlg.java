@@ -51,7 +51,7 @@ public class GeneticAlg {
             // jika fitness individual terbaik dari currentpop = maxPoint maka akan berhenti
             if(currentPop.getBestIdv().fitness==maxPoint)break;
         }
-        System.out.println("generation count: "+generation);//print generation count
+        System.out.println("generation count: "+(generation-1));//print generation count
         return currentPop.getBestIdv(); // mengembalikan individual terbaik dari currentpop
     }
 }

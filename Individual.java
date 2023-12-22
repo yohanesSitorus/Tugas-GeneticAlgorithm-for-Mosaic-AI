@@ -145,7 +145,7 @@ public class Individual implements Comparable<Individual>{
             }
             s+="\n";
         }
-        s+="\nFitness= "+this.fitness;
+        s+="Fitness= "+this.fitness;
         return s;
     }
 }
