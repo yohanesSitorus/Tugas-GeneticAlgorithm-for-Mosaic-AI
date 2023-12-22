@@ -10,6 +10,7 @@ public class GeneticAlg {
     public int[][] mosaic; // variabel mosaic bertipe array 2 dimensi
     public int maxPoint; // variabel maxPoint bertipe integer
     public int size;//besar panjang atau lebar mosaic
+    public int generationStop;
 
     // Constructor GeneticAlg meminta variabel rn, totalGeneration, maxPopuilationSize, elitisme, crossoverRate, mutationRate, Array mosaic juga maxPoint
     public GeneticAlg(Random rn, int totalGeneration, int maxPopulationSize, double elitismPct,double crossoverRate, double mutationRate,int[][] mosaic,int maxPoint,int n) {
@@ -51,7 +52,7 @@ public class GeneticAlg {
             // jika fitness individual terbaik dari currentpop = maxPoint maka akan berhenti
             if(currentPop.getBestIdv().fitness==maxPoint)break;
         }
-        System.out.println("generation count: "+(generation-1));//print generation count
+        this.generationStop=(generation-1);//generation count
         return currentPop.getBestIdv(); // mengembalikan individual terbaik dari currentpop
     }
 }
