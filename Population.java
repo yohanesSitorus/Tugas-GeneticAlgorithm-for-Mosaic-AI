@@ -74,6 +74,7 @@ public class Population {
             for(int i = 0;i < this.populasi.size(); i++) {
                 if(this.populasi.get(i).parentProbability+temp >= prob) {
                     parents[n] = this.populasi.get(i);
+                    break;
                 }
                 temp+=this.populasi.get(i).parentProbability;
             }

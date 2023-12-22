@@ -18,10 +18,11 @@ public class Individual implements Comparable<Individual>{
         }
     }
     //Constructor Individual dengan meminta variabel r dan array kromosom
-    public Individual(Random r,int[] kromosom){
+    public Individual(Random r,int[] kromosom,int size){
         this.indRand=r;
         this.fitness=0;
         this.kromosom=kromosom;
+        this.size=size;
     }
     //Method untuk mutasi
     public void mutate(){
@@ -102,8 +103,8 @@ public class Individual implements Comparable<Individual>{
         int rd2=1;
         //cari crossover point 1&2
         do{
-            rd1=this.indRand.nextInt(this.size-4)+3;
-            rd2=this.indRand.nextInt(this.size-4)+3;
+            rd1=this.indRand.nextInt((this.size*this.size)-4)+3;
+            rd2=this.indRand.nextInt((this.size*this.size)-4)+3;
         }while(Math.abs(rd1-rd2)<=2);
         int pos1 = Math.min(rd1,rd2);
         int pos2 = Math.max(rd1,rd2);
@@ -116,14 +117,14 @@ public class Individual implements Comparable<Individual>{
             child1[i]=other.kromosom[i];
             child2[i]=this.kromosom[i];
         }
-        for (int i=pos2+1;i<Integer.SIZE;i++) {
+        for (int i=pos2+1;i<this.kromosom.length-1;i++) {
             child1[i]=this.kromosom[i];
             child2[i]=other.kromosom[i];
         }
         //pilih salah satu anak
         int choose = this.indRand.nextInt(2);
-        if (choose==0) return new Individual(indRand, child1);
-        else return new Individual(indRand, child2);
+        if (choose==0) return new Individual(indRand, child1,this.size);
+        else return new Individual(indRand, child2,this.size);
     }
     @Override
     // Method untuk membandingkan fitness
@@ -137,8 +138,8 @@ public class Individual implements Comparable<Individual>{
     public String toString(){
         String s="";
         int counter=0;
-        for(int i=0;i<5;i++){
-            for(int j=0;j<5;j++){
+        for(int i=0;i<this.size;i++){
+            for(int j=0;j<this.size;j++){
                 s+=this.kromosom[counter];
                 counter++;
             }

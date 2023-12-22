@@ -30,7 +30,7 @@ public class GeneticAlg {
         currentPop.randomPopulation(); // mengisi dengan random population karena generasi pertama
         currentPop.computeAllFitnesses(); // menghitung semua fitness populasi
         // looping selama banyak generasi yang diminta belom terlebihi
-        while (generation>=this.totalGeneration) {
+        while (generation<=this.totalGeneration) {
             Population newPop = currentPop.getNewPopulationWElit(); // mengambil populasi sekarang denga elitisme
             // jika newPop tidak penuh, maka akan memilih parent untuk crossover
             while (newPop.isFilled()==false) {
