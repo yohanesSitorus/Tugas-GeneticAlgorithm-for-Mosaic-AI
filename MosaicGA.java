@@ -1,6 +1,5 @@
 
 import java.util.Random;
-import java.util.ArrayList;    
 
 public class MosaicGA {
     Random MyRand;
@@ -27,7 +26,7 @@ public class MosaicGA {
         Population currentPop = new Population(this.MyRand, this.maxPopulationSize, this.elitismPct, this.mosaic, this.mosaic.size);
         currentPop.randomPopulation();
         currentPop.computeAllFitnesses();
-        //System.out.println(currentPop);
+        System.out.println("current population: " + currentPop.toString());
         while (terminate(generation)==false) {
         	//System.out.println("Gen : "+generation+" Best: "+currentPop.getBestIdv().fitness);
             Population newPop = currentPop.getNewPopulationWElit();

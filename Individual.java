@@ -47,7 +47,7 @@ public class Individual  implements Comparable<Individual>{
                     }else if(i == mosaic.size-1 && j == mosaic.size-1) { //bagian pojok kanan bawah mosaic
                         poin = this.chromosome.grid[i][j] + this.chromosome.grid[i-1][j] + this.chromosome.grid[i-1][j-1] + this.chromosome.grid[i][j-1] ;
                     }else if(i == 0) { //bagian pinggir atas tpi bukan pojok 
-                        poin = this.chromosome.grid[i][j] + this.chromosome.grid[i][j+1] + this.chromosome.grid[i+1][j+1] + this.chromosome.grid[i+1][j] + this.chromosome.grid[i-1][j-1] + this.chromosome.grid[i][j-1] ;
+                        poin = this.chromosome.grid[i][j] + this.chromosome.grid[i][j+1] + this.chromosome.grid[i+1][j+1] + this.chromosome.grid[i+1][j] + this.chromosome.grid[i+1][j-1] + this.chromosome.grid[i][j-1] ;
                     }else if(j == 0) { //bagian pinggir kiri tpi bukan pojok
                         poin = this.chromosome.grid[i][j] + this.chromosome.grid[i-1][j] + this.chromosome.grid[i-1][j+1] + this.chromosome.grid[i][j+1] + this.chromosome.grid[i+1][j+1] + this.chromosome.grid[i+1][j] ;
                     }else if(i == mosaic.size-1) { //pagian pinggir bawah tpi bukan pojok

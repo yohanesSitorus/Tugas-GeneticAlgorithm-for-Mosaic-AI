@@ -7,7 +7,7 @@ public class Main{
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
    		int loop = sc.nextInt();
-   		System.out.println("Target: 13692887");
+   		// System.out.println("Target: 13692887");
    		Random init = new Random();
     	for (int ct=1;ct<=loop;ct++) {
     		long seed = init.nextLong();
@@ -25,6 +25,7 @@ public class Main{
                         mosaic.setGrid(i, j, sc.nextInt()) ;
                     }
                 }
+                mosaic.printGrid() ;
             } catch (FileNotFoundException e) { e.printStackTrace();}
     
             try {
@@ -39,6 +40,7 @@ public class Main{
             MosaicGA ga = new MosaicGA(gen,totalGeneration, maxPopulationSize, crossoverRate,
                                             mutationRate, elitismPct, mosaic);
             Individual res = ga.run();
+            System.out.printf("%2d: Acc = %.3f (%d) Seed: %d\n",ct, res.fitness,res.fitness,seed);
         }
        
     }

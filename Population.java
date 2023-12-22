@@ -1,6 +1,5 @@
 import java.util.Random;
 import java.util.ArrayList;
-import java.util.*;
 
 public class Population {
     Random MyRand;
@@ -25,7 +24,7 @@ public class Population {
 
     public void randomPopulation() {
         for (int i=0;i<this.maxPopulationSize;i++) {
-            this.addIndividual(new Individual(this.MyRand, this.mosaic, this.size));
+            this.addIndividual(new Individual(this.MyRand, this.mosaic, this.mosaic.size));
         }
     }
 
@@ -88,7 +87,7 @@ public class Population {
 	public String toString() {
 		String res = new String();
 		for (int i =0;i<this.population.size();i++) {
-			res = res + new String(this.population.get(i)+"\n");
+			res = res + new String(this.population.get(i).fitness +"\n");
 		}
 		return res;
 	}
