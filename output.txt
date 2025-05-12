@@ -1,0 +1,105 @@
+seed: -6867081811474345442
+total generasi: 1000
+populasi max: 500
+mutasi: 0.15
+elitisme: 0.2
+generasi stop: 22
+10000
+10011
+00111
+01100
+01100
+Fitness= 25
+
+seed: -7594799278477981649
+total generasi: 1000
+populasi max: 500
+mutasi: 0.15
+elitisme: 0.2
+generasi stop: 1000
+11101
+10000
+10000
+00001
+01110
+Fitness= 18
+
+seed: -140856787345067766
+total generasi: 1000
+populasi max: 500
+mutasi: 0.15
+elitisme: 0.2
+generasi stop: 11
+10000
+10100
+10111
+01111
+00000
+Fitness= 28
+
+seed: -6822151405457026846
+total generasi: 1000
+populasi max: 500
+mutasi: 0.15
+elitisme: 0.2
+generasi stop: 1000
+0101101
+0111110
+0111111
+0000001
+1000111
+0001110
+0000110
+Fitness= 58
+
+seed: -2951296052577859297
+total generasi: 1000
+populasi max: 500
+mutasi: 0.15
+elitisme: 0.2
+generasi stop: 1000
+0111110
+0110000
+0100000
+0110011
+1011110
+1011111
+0011110
+Fitness= 55
+
+seed: -6603821054608141870
+total generasi: 1000
+populasi max: 500
+mutasi: 0.15
+elitisme: 0.2
+generasi stop: 1000
+0000111100
+1000011011
+1000101001
+0001011110
+0001011110
+1110111110
+0100011101
+1100111111
+1101111110
+0100111110
+Fitness= 111
+
+seed: 7803550618058869038
+total generasi: 1000
+populasi max: 500
+mutasi: 0.15
+elitisme: 0.2
+generasi stop: 1000
+0000111111
+0001101110
+0011111111
+1101110101
+0101100001
+0100110001
+0101111111
+1000110111
+1001100111
+0000001010
+Fitness= 144
+
